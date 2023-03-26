@@ -1,1 +1,1 @@
-# physics-and-finance
+# Physics and Finance
