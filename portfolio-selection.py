@@ -4,6 +4,9 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.linalg import inv
+# uncomment for faster plotting
+plt.rcParams['text.usetex'] = True
+
 
 # to ignore warings when handling dataframes
 # import warnings
@@ -75,8 +78,8 @@ def plt_volatility_return(covariant_matrix, average_return, stocks):
     for k in range(3):
         plt.scatter(np.sqrt(covariant_matrix[k][k]), average_return[k], label=stocks[k])
     plt.legend()
-    plt.xlabel('volatility')
-    plt.ylabel('return')
+    plt.xlabel(r'Volatility $\sigma$')
+    plt.ylabel(r'Return $\rho$')
 
 # plot volatily of individual stocks: uncomment following line
 plt_volatility_return(covariant_matrix, average_return, stocks)
