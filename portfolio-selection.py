@@ -21,10 +21,8 @@ def plot(stock_data, name, stocjs):
 
     plt.figure()
     for stock in stocks:
-
         plt.plot(stock_data[stock + name], label=stock, linewidth=0.7)
     plt.legend()
-
     if name == '':
         plt.figure()
         plt.plot(stock_data['Apple'], label='Apple', linewidth=0.7)
@@ -34,7 +32,6 @@ def plot(stock_data, name, stocjs):
         plt.figure()
         plt.plot(stock_data['Coke'], label='Coke', linewidth=0.7)
         plt.legend()
-    # plt.show()
 
 ## part a)
 stocks = ['Apple', 'SP500', 'Coke']
@@ -74,6 +71,7 @@ inv_covariant_matrix = inv(covariant_matrix)
 
 
 def plt_volatility_return(covariant_matrix, average_return, stocks):
+    plt.figure()
     for k in range(3):
         plt.scatter(np.sqrt(covariant_matrix[k][k]), average_return[k], label=stocks[k])
     plt.legend()
@@ -110,12 +108,11 @@ def volatility(returns, inv_covariant_matrix, v, covariant_matrix):
     return volatilities
 
 
-plt.figure()
 returns = np.linspace(0, 0.275, 101)/trading_days
 
 v = np.array([average_return, e, e3])
 volatilities = volatility(returns, inv_covariant_matrix, v, covariant_matrix)
 
-plt.plot(volatilities, returns)
 plt_volatility_return(covariant_matrix, average_return, stocks)
+plt.plot(volatilities, returns)
 plt.show()
