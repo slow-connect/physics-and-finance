@@ -111,11 +111,13 @@ def volatility(returns, inv_covariant_matrix, v, covariant_matrix):
     return volatilities
 
 
-returns = np.linspace(0, 0.275, 101)/trading_days
 
 v = np.array([average_return, e, e3])
 volatilities = volatility(returns, inv_covariant_matrix, v, covariant_matrix)
 
-plt_volatility_return(covariant_matrix, average_return, stocks)
-plt.plot(volatilities, returns)
+plt_volatility_return(covariant_matrix, average_return*trading_days, stocks)
+plt.scatter(volatilities, returns*trading_days)
+returns = np.linspace(0, 0.275, 101)/trading_days
+volatilities = volatility(returns, inv_covariant_matrix, v, covariant_matrix)
+plt.plot(volatilities, returns*trading_days)
 plt.show()
