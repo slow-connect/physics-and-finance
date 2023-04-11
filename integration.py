@@ -1,7 +1,8 @@
 from numpy.core.function_base import linspace
 from numpy import zeros
 from scipy.integrate import quad
-from math import pi, exp, log, sqrt, inf
+from math import pi, exp, sqrt, inf
+from math import log as log
 from matplotlib.pyplot import plot, xlabel, ylabel, show
 
 
@@ -12,6 +13,7 @@ def psi(s, si, rho, t):
 
 si = 0.3
 rho = 0.1
+rho = rho - si*si/2
 t = 2
 int = quad(psi, 0.4, 0.6, args=(si, rho, t))
 print(int)
