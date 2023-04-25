@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from numpy import matmul, array, linspace, polyval, sqrt, identity, diag
+from numpy import matmul, array, linspace, polyval, sqrt, identity, diag, zeros
 from scipy.linalg import inv
 import pandas as pd
 from scipy.integrate import quad
@@ -95,7 +95,7 @@ print(p3)
 
 DEG_POLY = 2
 prCol(DEG_POLY)
-col_names = ['x to pow 2', 'x to pow 1', 'x to pow 0']
+col_names = ['x to pow 3', 'x to pow 2', 'x to pow 0']
 N = len(data)
 for k in range(DEG_POLY+1):
     data['x to pow ' + str(k)] = data.apply(lambda row: row['x']**k, axis=1)
@@ -105,32 +105,25 @@ mat = array(data[col_names].values)
 yy = matmul(mat.T, y)
 param = matmul(pinv(mat), yy)
 prCol(param)
+tmp = zeros(4)
+tmp[0] = param[0]
+tmp[1] = param[1]
+tmp[3] = param[2]
+param = tmp
 
 plt.figure()
 plot_poly_points(x, param, data_copy)
 yy = polyval(param, x)
-err = (yy - y)**2
-err_bar = sqrt(1/len(err)*sum(err))
-print(err_bar)
-
-
-err_matrix = 1/err_bar * identity(N)
-cov = pinv(matmul(err_matrix, mat))
-err_param = sqrt(diag(cov))
-
-# print(cov)
-prCol(err_param)
 p2 = chi(y, x, param, err_bar)
 print(p2)
-f = (p3 - p2)/(p3*(N - 3))
+f = (p2 - p3)/(p2/(N - 4))
 print()
 print(f)
-m = N - 3
+m = N - 4
 n = 1
 
 x_ = n * f / (m + n * f)
-
-prob = inc_beta(x_, n/2, m/2)
+prob = 1 - inc_beta(x_, n/2, m/2)
 print(prob)
 
 plt.figure()
